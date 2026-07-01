@@ -119,10 +119,21 @@
     padding:3px 10px;
     border-radius:20px;
   }
-  .card-btn .icon-mark{
-    font-size:34px;
-    font-weight:900;
-    line-height:1;
+  .icon-badge{
+    width:58px;
+    height:58px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.18);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
+  }
+  .icon-badge svg{
+    width:30px;
+    height:30px;
+    stroke:#fff;
+    fill:none;
   }
   .card-vehicles{background:linear-gradient(155deg,var(--navy),#1c3350);}
   .card-equipment{background:linear-gradient(155deg,var(--gold),var(--gold-dark));color:#2b1900;}
@@ -330,19 +341,41 @@
 <div class="nav-wrap">
   <div class="nav-row top">
     <button class="card-btn card-vehicles" data-target="vehicles">
-      <span class="icon-mark">آ</span>
+      <span class="icon-badge">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="24" width="30" height="16" rx="2"/>
+          <path d="M36 27h12l10 9v4h-6"/>
+          <path d="M8 24v-7h18v7"/>
+          <circle cx="17" cy="44" r="5.5"/>
+          <circle cx="45" cy="44" r="5.5"/>
+          <line x1="36" y1="40" x2="41" y2="40"/>
+        </svg>
+      </span>
       <span>الآليات</span>
       <span class="count" id="count-vehicles"></span>
     </button>
     <button class="card-btn card-equipment" data-target="equipment">
-      <span class="icon-mark">م</span>
+      <span class="icon-badge">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24 26v-5a8 8 0 0 1 16 0v5"/>
+          <rect x="10" y="26" width="44" height="23" rx="3"/>
+          <line x1="10" y1="36" x2="54" y2="36"/>
+          <rect x="28" y="32" width="8" height="8" rx="1"/>
+        </svg>
+      </span>
       <span>المعدات</span>
       <span class="count" id="count-equipment"></span>
     </button>
   </div>
   <div class="nav-row bottom">
     <button class="card-btn card-skills" data-target="skills">
-      <span class="icon-mark">ه</span>
+      <span class="icon-badge">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 14 6 26l26 12 26-12z"/>
+          <path d="M18 32v10c0 4.5 6.3 8 14 8s14-3.5 14-8V32"/>
+          <line x1="58" y1="26" x2="58" y2="40"/>
+        </svg>
+      </span>
       <span>المهارات</span>
       <span class="count" id="count-skills"></span>
     </button>

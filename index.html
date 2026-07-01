@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التدريب على رأس العمل — الدفاع المدني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0D1B2A;
+    --navy-light:#16283d;
+    --gold:#F0A500;
+    --gold-dark:#c98700;
+    --green:#0A7C59;
+    --green-dark:#075f44;
+    --paper:#f5f6f8;
+    --ink:#1c1c1c;
+    --line:#e2e5ea;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Cairo',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.7;
+  }
+  a{color:inherit;}
+
+  /* ===== Header ===== */
+  header{
+    background:linear-gradient(180deg,var(--navy) 0%,var(--navy-light) 100%);
+    color:#fff;
+    text-align:center;
+    padding:36px 16px 42px;
+    box-shadow:0 4px 18px rgba(0,0,0,.25);
+    position:relative;
+  }
+  .logo-wrap{
+    display:flex;
+    justify-content:center;
+    margin-bottom:14px;
+  }
+  .logo-wrap svg{
+    width:92px;
+    height:92px;
+    filter:drop-shadow(0 3px 6px rgba(0,0,0,.35));
+  }
+  header h1{
+    margin:0;
+    font-size:clamp(24px,4vw,36px);
+    font-weight:900;
+    letter-spacing:.5px;
+  }
+  header p.subtitle{
+    margin:8px 0 0;
+    color:#c9d3de;
+    font-size:15px;
+    font-weight:600;
+  }
+
+  /* ===== Nav cards ===== */
+  .nav-wrap{
+    max-width:960px;
+    margin:-30px auto 0;
+    padding:0 16px 10px;
+    position:relative;
+    z-index:3;
+  }
+  .nav-row{
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .nav-row.top{margin-bottom:18px;}
+  .card-btn{
+    all:unset;
+    cursor:pointer;
+    width:170px;
+    height:170px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    border-radius:18px;
+    text-align:center;
+    color:#fff;
+    font-weight:800;
+    font-size:19px;
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+    transition:transform .18s ease, box-shadow .18s ease;
+    border:3px solid transparent;
+  }
+  .card-btn:hover{transform:translateY(-4px);}
+  .card-btn.active{border-color:#fff;transform:translateY(-6px);}
+  .card-btn .count{
+    font-size:13px;
+    font-weight:600;
+    opacity:.9;
+    background:rgba(255,255,255,.15);
+    padding:3px 10px;
+    border-radius:20px;
+  }
+  .card-btn .icon-mark{
+    font-size:34px;
+    font-weight:900;
+    line-height:1;
+  }
+  .card-vehicles{background:linear-gradient(155deg,var(--navy),#1c3350);}
+  .card-equipment{background:linear-gradient(155deg,var(--gold),var(--gold-dark));color:#2b1900;}
+  .card-equipment .count{color:#2b1900;}
+  .card-skills{background:linear-gradient(155deg,var(--green),var(--green-dark));}
+
+  /* ===== TOC ===== */
+  .toc{
+    max-width:960px;
+    margin:0 auto 20px;
+    padding:0 16px;
+  }
+  .toc-box{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px 22px;
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+  }
+  .toc-box h2{
+    margin:0 0 12px;
+    font-size:18px;
+    color:var(--navy);
+    border-bottom:2px solid var(--line);
+    padding-bottom:8px;
+  }
+  .toc-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;}
+  .toc-list li{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 12px;
+    border-radius:8px;
+    background:var(--paper);
+    font-size:14.5px;
+  }
+  .toc-list li b{font-weight:700;}
+  .toc-badge{
+    background:var(--navy);
+    color:#fff;
+    border-radius:20px;
+    padding:2px 12px;
+    font-size:13px;
+    font-weight:700;
+  }
+
+  /* ===== Sections ===== */
+  main{max-width:1080px;margin:0 auto;padding:0 16px 60px;}
+  section.content-section{
+    display:none;
+    animation:fadeIn .25s ease;
+  }
+  section.content-section.visible{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:18px 0 20px;
+  }
+  .section-title .bar{
+    width:8px;height:32px;border-radius:4px;
+  }
+  .section-title h2{margin:0;font-size:24px;color:var(--navy);}
+  .bar.navy{background:var(--navy);}
+  .bar.gold{background:var(--gold);}
+  .bar.green{background:var(--green);}
+
+  /* vehicle cards grid */
+  .vehicle-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+    gap:18px;
+  }
+  .vehicle-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px;
+    cursor:pointer;
+    transition:box-shadow .2s ease, transform .2s ease;
+    border-top:5px solid var(--navy);
+  }
+  .vehicle-card:hover{box-shadow:0 8px 22px rgba(0,0,0,.12);transform:translateY(-3px);}
+  .vehicle-card h3{margin:0 0 6px;color:var(--navy);font-size:19px;}
+  .vehicle-card .model{color:#666;font-size:13.5px;margin-bottom:12px;}
+  .vehicle-card .meta{
+    display:flex;justify-content:space-between;font-size:13px;color:#555;
+    border-top:1px dashed var(--line);padding-top:10px;
+  }
+  .vehicle-card .meta b{color:var(--navy);}
+  .open-hint{color:var(--gold-dark);font-weight:700;font-size:13px;}
+
+  /* equipment / skills cards */
+  .info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:16px;
+  }
+  .info-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-right:5px solid var(--gold);
+    border-radius:12px;
+    padding:16px 18px;
+  }
+  .info-card.skill{border-right-color:var(--green);}
+  .info-card h4{margin:0 0 8px;color:var(--navy);font-size:16.5px;}
+  .info-card ul{margin:0;padding-inline-start:18px;font-size:14px;color:#333;}
+  .info-card ul li{margin-bottom:4px;}
+
+  /* ===== Modal ===== */
+  .modal-overlay{
+    position:fixed;inset:0;
+    background:rgba(13,27,42,.65);
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding:40px 16px;
+    overflow-y:auto;
+    z-index:50;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:#fff;
+    border-radius:18px;
+    max-width:820px;
+    width:100%;
+    padding:0;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    overflow:hidden;
+  }
+  .modal-head{
+    background:linear-gradient(155deg,var(--navy),#1c3350);
+    color:#fff;
+    padding:22px 26px;
+    position:relative;
+  }
+  .modal-head h3{margin:0;font-size:22px;}
+  .modal-head .model{color:#c9d3de;font-size:14px;margin-top:4px;}
+  .modal-close{
+    all:unset;
+    position:absolute;
+    left:18px;top:18px;
+    cursor:pointer;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;
+  }
+  .modal-close:hover{background:rgba(255,255,255,.3);}
+  .modal-body{padding:22px 26px;max-height:70vh;overflow-y:auto;}
+  .drawer-block{margin-bottom:20px;}
+  .drawer-block h4{
+    margin:0 0 10px;
+    color:var(--gold-dark);
+    font-size:16px;
+    border-bottom:2px solid var(--line);
+    padding-bottom:6px;
+  }
+  table.items-table{width:100%;border-collapse:collapse;font-size:14px;}
+  table.items-table td{padding:6px 4px;border-bottom:1px solid var(--line);}
+  table.items-table td.qty{
+    text-align:center;
+    width:60px;
+    font-weight:700;
+    color:var(--navy);
+  }
+  .modal-footer{
+    padding:14px 26px 22px;
+    text-align:left;
+    color:#666;
+    font-size:13px;
+    border-top:1px solid var(--line);
+  }
+
+  footer{
+    text-align:center;
+    padding:22px;
+    color:#888;
+    font-size:13px;
+    background:#fff;
+    border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <!-- شعار الدفاع المدني (الرمز الدولي للدفاع المدني - مثلث أزرق على خلفية برتقالية وفق البروتوكول الإضافي الأول لاتفاقيات جنيف) -->
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="#F0A500" stroke="#fff" stroke-width="3"/>
+      <polygon points="50,20 25,72 75,72" fill="none" stroke="#0D1B2A" stroke-width="8" stroke-linejoin="round"/>
+      <polygon points="50,32 34,66 66,66" fill="#0D1B2A"/>
+    </svg>
+  </div>
+  <h1>التدريب على رأس العمل</h1>
+  <p class="subtitle">منصة الدفاع المدني للتدريب الميداني — الآليات · المعدات · المهارات</p>
+</header>
+
+<div class="nav-wrap">
+  <div class="nav-row top">
+    <button class="card-btn card-vehicles" data-target="vehicles">
+      <span class="icon-mark">آ</span>
+      <span>الآليات</span>
+      <span class="count" id="count-vehicles"></span>
+    </button>
+    <button class="card-btn card-equipment" data-target="equipment">
+      <span class="icon-mark">م</span>
+      <span>المعدات</span>
+      <span class="count" id="count-equipment"></span>
+    </button>
+  </div>
+  <div class="nav-row bottom">
+    <button class="card-btn card-skills" data-target="skills">
+      <span class="icon-mark">ه</span>
+      <span>المهارات</span>
+      <span class="count" id="count-skills"></span>
+    </button>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-box">
+    <h2>جدول المحتويات</h2>
+    <ul class="toc-list" id="toc-list"></ul>
+  </div>
+</div>
+
+<main>
+  <section class="content-section" id="section-vehicles">
+    <div class="section-title"><span class="bar navy"></span><h2>الآليات</h2></div>
+    <div class="vehicle-grid" id="vehicle-grid"></div>
+  </section>
+
+  <section class="content-section" id="section-equipment">
+    <div class="section-title"><span class="bar gold"></span><h2>المعدات</h2></div>
+    <div class="info-grid" id="equipment-grid"></div>
+  </section>
+
+  <section class="content-section" id="section-skills">
+    <div class="section-title"><span class="bar green"></span><h2>المهارات</h2></div>
+    <div class="info-grid" id="skills-grid"></div>
+  </section>
+</main>
+
+<footer>© الدفاع المدني — منصة التدريب على رأس العمل</footer>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <button class="modal-close" id="modal-close">✕</button>
+      <h3 id="modal-title"></h3>
+      <div class="model" id="modal-model"></div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<script>
+/* ================= DATA ================= */
+
+const VEHICLES = [
+  {
+    id:"rescue",
+    name:"آلية الإنقاذ",
+    model:"روزنباور 4×4",
+    sections:[
+      {title:"الدرج الأيمن الأمامي", items:[
+        ["ماطور هواء ضاغط",1],["مولد كهربائي هوندا",1],["عمود إنارة 2 كبس",1],
+        ["توصيلات كهربائية",2],["قفازات ضد الكهرباء",3],["كشاف هالوجين على قاعدة",2]
+      ]},
+      {title:"الدرج الأيسر الأمامي", items:[
+        ["سلالم كلال",1],["أحزمة إنقاذ هورانس",2],["كيس حفظ الموتى كبار",1],
+        ["بدلة غوص",1],["قشاشة آبار ارتوازية",1],["نظارات واقية",4],
+        ["بطانية صوف",1],["جالون وقود",1]
+      ]},
+      {title:"الدرج الأيسر الخلفي", items:[
+        ["جهاز قص وفصل",1],["معول ثلاثة روس",2],["سلاسل إنقاذ",2],
+        ["مفتاح مواسير كبير",1],["كريك",1],["طفايات بودرة",2],
+        ["قمع تحذيري",4],["مقص أسلاك معزول",1],["شنطة عدة",1],
+        ["منشار آلي متعدد الأغراض",1],["قفازات يدوية",2],["عتلة عادية",2]
+      ]},
+      {title:"الدرج الأيمن الخلفي", items:[
+        ["طفاية بودرة",2],["جهاز تنفس كامل",2],["بلطة وسط",1],
+        ["بلطة براسين",1],["مقص حديد كبير",1],["طوق نجاة",4],["أقراص منشار",6]
+      ]},
+      {title:"الأدراج الخلفية", items:[
+        ["اسطوانة تنفس",3],["طقم وسائد هوائية + منظم + ليات",1],["حبال",4],
+        ["سلم طبقتين",1],["سلة إنقاذ بلاستيك",1],["سترة نجاة",4],
+        ["حبال إنقاذ",3],["جهاز فتح أبواب",1],["واير سحب معدني",1],
+        ["حبل مغلف للسحب",1],["حقيبة إسعافات",1],["ونش سحب أمامي",1],
+        ["ريموت بونش",1],["كشاف يدوي قابل للشحن",3]
+      ]}
+    ]
+  },
+  {
+    id:"commander",
+    name:"آلية الكوماندر",
+    model:"عربة الإطفاء الكبيرة",
+    sections:[
+      {title:"الدرج الأيسر الأمامي", items:[
+        ["جهاز هيدروليكي ميكانيكي",1],["هيدروليكي كهربائي",1],["هيدروليكي يدوي",1],
+        ["خراطيم هيدروليكية",2],["فالج",1],["مقص",1],["رافعات",3],
+        ["جهاز فتح أبواب",1],["اسطوانة وسائد",1],["منظم ضغط",1],
+        ["موزع هواء",1],["خراطيم وسائد الرفع",3],["وسائد رفع",3],["نقالة قابلة للطي",1]
+      ]},
+      {title:"الدرج الأيسر الخلفي", items:[
+        ["مكثف رغوة للقاذف العلوي",1],["مكثف رغوة 1.5 بوصة",2],["خلاط رغوة",2],
+        ["قاذف 2.5 بوصة",2],["قاذف 1.5 بوصة",4],["نقاص",3],
+        ["فلتر 2.5 بوصة",2],["فلتر 4 بوصة",2],["موزع",4]
+      ]},
+      {title:"الدرج الأيمن الأمامي", items:[
+        ["مولد كهربائي",1],["ماطور طرد دخان",1],["كشافات متنقلة",2],
+        ["ركائز كشافات",2],["صندوق معدات",1]
+      ]},
+      {title:"الدرج الأيمن الخلفي", items:[
+        ["منشار متعدد الأغراض",1],["غطاس",1],["مقص حديد",2],
+        ["عتلة متعددة",1],["مقص كهربائي",1],["أقراص منشار",6],
+        ["توصيلات كهربائية",1],["عفريتة السيارة",1],["جالون وقود",1]
+      ]},
+      {title:"الجانبان", items:[
+        ["بلطة",1],["منيقة 2.5 بوصة",2],["سلم مزدوج",1],
+        ["سلم مفرد",1],["خطاف شنكل",1],["منيقة 4 بوصة",4]
+      ]},
+      {title:"الصندوق العلوي", items:[
+        ["خراطيم 1.5 بوصة",20],["خراطيم 2.5 بوصة",6],["سلم كلال",1],
+        ["طوق نجاة",4],["سترة نجاة",2],["كرسي إنزال",2],["حبال",2]
+      ]},
+      {title:"الخزائن الخلفية", items:[
+        ["بكرة",1],["نقالة طائرة",1],["قاذف 1.5 بوصة",2]
+      ]}
+    ]
+  },
+  {
+    id:"white-proplin",
+    name:"آلية وايت بروبلين",
+    model:"TLF 15000/400",
+    sections:[
+      {title:"الدرج الأيمن — الخزانة الأولى", items:[
+        ["خراطيم 1.5 بوصة",4],["خراطيم 2.5 بوصة",2],["خراطيم 4 بوصة",1],
+        ["قاذف 1.5 بوصة",1],["بلطة",1],["وصلة أنثى مزدوجة",1],
+        ["سلم كلال",1],["طوق نجاة",2],["سترة نجاة",2],["حلقة هوك",1]
+      ]},
+      {title:"الدرج الأيسر — الخزانة الثانية والثالثة", items:[
+        ["ماطور دفع دخان كبير",1],["خراطيم 1.5 بوصة",4],["طفايات حريق",2],
+        ["قاذف 1.5 بوصة",1],["فلتر 4 بوصة",1],["عفريتة مفتاح عجل",1],
+        ["مثلث تحذيري",1],["مفتاح خراطيم كبير + صغير",4],["ريموت بونش",1],
+        ["لي تعبئة هواء",1],["جهاز كرسي الإنزال",1],["قفاز إطفاء",2],["حبال",4]
+      ]},
+      {title:"الدرج الخلفي", items:[
+        ["مضخة",1],["بكرة الخرطوم",1],["مكثف البكرة",1],
+        ["مفاتيح البكرة",2],["تكايات الكفرات",2],["كفر احتياطي",1]
+      ]},
+      {title:"الصندوق العلوي", items:[
+        ["لي شفط رغوة خارجي",1],["منيقة 4 بوصة",2],["خطاف شنكل",1],
+        ["سلم مزدوج",1],["قاذف علوي",1]
+      ]}
+    ]
+  }
+];
+
+const EQUIPMENT = [
+  {title:"معدات الإطفاء", items:[
+    "طفايات حريق (بودرة / ثاني أكسيد الكربون / رغوة)",
+    "خراطيم الحريق بمقاسات مختلفة (1.5، 2.5، 4 بوصة)",
+    "قواذف المياه والرغوة",
+    "موزعات ومنيقات الخراطيم",
+    "مضخات الحريق المحمولة"
+  ]},
+  {title:"معدات الإنقاذ والفك", items:[
+    "أجهزة القص والفصل الهيدروليكية",
+    "الرافعات والوسائد الهوائية",
+    "المناشير المتعددة الأغراض",
+    "العتل والسلاسل والكريك",
+    "معدات فتح الأبواب"
+  ]},
+  {title:"معدات الحماية الشخصية", items:[
+    "أجهزة التنفس الذاتي واسطوانات الهواء",
+    "بدلات الإطفاء والغوص",
+    "القفازات وأحذية السلامة",
+    "الخوذات ونظارات الوقاية",
+    "أحزمة وحبال الإنقاذ"
+  ]},
+  {title:"معدات الإضاءة والطاقة", items:[
+    "المولدات الكهربائية المتنقلة",
+    "أعمدة وكشافات الإنارة",
+    "الكشافات اليدوية القابلة للشحن",
+    "التوصيلات والكابلات الكهربائية"
+  ]},
+  {title:"معدات الإسعاف والدعم", items:[
+    "حقائب الإسعافات الأولية",
+    "النقالات الثابتة والقابلة للطي",
+    "كراسي الإنزال وأطواق النجاة",
+    "بطانيات الطوارئ"
+  ]},
+  {title:"معدات السلامة المرورية", items:[
+    "الأقماع والمثلثات التحذيرية",
+    "سترات السلامة العاكسة",
+    "إشارات وحواجز تنظيم الموقع"
+  ]}
+];
+
+const SKILLS = [
+  {title:"مهارات تشغيل آليات الإنقاذ", items:[
+    "الفحص الدوري لمحتويات الأدراج قبل الخروج للبلاغ",
+    "تشغيل المولدات وأجهزة الإضاءة الميدانية",
+    "استخدام الونش وأجهزة السحب الأمامية",
+    "نصب السلالم وأحزمة الإنقاذ بأمان"
+  ]},
+  {title:"مهارات القص والفصل الهيدروليكي", items:[
+    "تشغيل جهاز القص والفصل والمقص الهيدروليكي",
+    "استخدام وسائد الرفع الهوائية بأمان",
+    "تركيب وتشغيل المنشار الآلي متعدد الأغراض",
+    "التعامل الآمن مع الأدوات الكهربائية والمعزولة"
+  ]},
+  {title:"مهارات الإطفاء", items:[
+    "تشغيل المضخات وتوصيل الخراطيم والقواذف",
+    "حساب معدلات تدفق المياه والرغوة",
+    "استخدام خلاط ومكثف الرغوة بالنسب الصحيحة",
+    "إدارة بكرة الخرطوم أثناء العمليات"
+  ]},
+  {title:"مهارات الإسعاف الأولي", items:[
+    "تقييم الحالة الأولية للمصاب في الموقع",
+    "استخدام النقالات وكراسي الإنزال بأمان",
+    "التعامل مع حقيبة الإسعافات الأولية",
+    "نقل المصابين عبر السلالم والأماكن الضيقة"
+  ]},
+  {title:"مهارات السلامة الشخصية", items:[
+    "ارتداء واستخدام جهاز التنفس الذاتي",
+    "التحقق من ضغط اسطوانات الهواء قبل الدخول",
+    "ارتداء بدلات الحماية والقفازات المناسبة للمهمة",
+    "تقييم المخاطر قبل الدخول للموقع"
+  ]},
+  {title:"مهارات القيادة والتنسيق الميداني", items:[
+    "قيادة الآليات في الظروف الطارئة",
+    "تنظيم موقع الحادث بالأقماع والحواجز",
+    "التنسيق بين فرق الإنقاذ والإطفاء والإسعاف",
+    "التواصل اللاسلكي أثناء العمليات"
+  ]}
+];
+
+/* ================= HELPERS ================= */
+
+const sumItems = (items) => items.reduce((s,[,q])=>s+q,0);
+const vehicleTotal = (v) => v.sections.reduce((s,sec)=>s+sumItems(sec.items),0);
+const vehiclePieces = (v) => v.sections.reduce((s,sec)=>s+sec.items.length,0);
+
+/* ================= RENDER: nav counts ================= */
+document.getElementById('count-vehicles').textContent = VEHICLES.length + ' آليات';
+document.getElementById('count-equipment').textContent = EQUIPMENT.length + ' فئات';
+document.getElementById('count-skills').textContent = SKILLS.length + ' محاور';
+
+/* ================= RENDER: TOC ================= */
+const tocList = document.getElementById('toc-list');
+const totalVehicleUnits = VEHICLES.reduce((s,v)=>s+vehicleTotal(v),0);
+const totalEquipmentItems = EQUIPMENT.reduce((s,c)=>s+c.items.length,0);
+const totalSkillItems = SKILLS.reduce((s,c)=>s+c.items.length,0);
+
+const tocRows = [
+  ['الآليات', `${VEHICLES.length} آليات — ${totalVehicleUnits} قطعة تجهيز`],
+  ['المعدات', `${EQUIPMENT.length} فئات — ${totalEquipmentItems} عنصر`],
+  ['المهارات', `${SKILLS.length} محاور — ${totalSkillItems} مهارة`]
+];
+tocRows.forEach(([label,badge])=>{
+  const li = document.createElement('li');
+  li.innerHTML = `<b>${label}</b><span class="toc-badge">${badge}</span>`;
+  tocList.appendChild(li);
+});
+
+/* ================= RENDER: vehicle cards ================= */
+const vehicleGrid = document.getElementById('vehicle-grid');
+VEHICLES.forEach(v=>{
+  const card = document.createElement('div');
+  card.className = 'vehicle-card';
+  card.innerHTML = `
+    <h3>${v.name}</h3>
+    <div class="model">${v.model}</div>
+    <div class="meta">
+      <span>عدد الأقسام: <b>${v.sections.length}</b></span>
+      <span>إجمالي القطع: <b>${vehicleTotal(v)}</b></span>
+    </div>
+    <div style="margin-top:10px;" class="open-hint">اضغط لعرض المحتويات ◀</div>
+  `;
+  card.addEventListener('click', ()=>openVehicleModal(v));
+  vehicleGrid.appendChild(card);
+});
+
+/* ================= RENDER: equipment ================= */
+const equipmentGrid = document.getElementById('equipment-grid');
+EQUIPMENT.forEach(cat=>{
+  const card = document.createElement('div');
+  card.className = 'info-card';
+  card.innerHTML = `<h4>${cat.title}</h4><ul>${cat.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+  equipmentGrid.appendChild(card);
+});
+
+/* ================= RENDER: skills ================= */
+const skillsGrid = document.getElementById('skills-grid');
+SKILLS.forEach(cat=>{
+  const card = document.createElement('div');
+  card.className = 'info-card skill';
+  card.innerHTML = `<h4>${cat.title}</h4><ul>${cat.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+  skillsGrid.appendChild(card);
+});
+
+/* ================= MODAL ================= */
+const overlay = document.getElementById('modal-overlay');
+const modalTitle = document.getElementById('modal-title');
+const modalModel = document.getElementById('modal-model');
+const modalBody = document.getElementById('modal-body');
+const modalFooter = document.getElementById('modal-footer');
+
+function openVehicleModal(v){
+  modalTitle.textContent = v.name;
+  modalModel.textContent = v.model;
+  modalBody.innerHTML = v.sections.map(sec=>`
+    <div class="drawer-block">
+      <h4>${sec.title}</h4>
+      <table class="items-table">
+        ${sec.items.map(([name,qty])=>`<tr><td>${name}</td><td class="qty">${qty}</td></tr>`).join('')}
+      </table>
+    </div>
+  `).join('');
+  modalFooter.textContent = `عدد الأقسام: ${v.sections.length} — إجمالي القطع: ${vehicleTotal(v)}`;
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('modal-close').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+/* ================= NAV ACCORDION ================= */
+const navButtons = document.querySelectorAll('.card-btn');
+const sections = {
+  vehicles: document.getElementById('section-vehicles'),
+  equipment: document.getElementById('section-equipment'),
+  skills: document.getElementById('section-skills')
+};
+
+navButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const target = btn.dataset.target;
+    const isActive = btn.classList.contains('active');
+    navButtons.forEach(b=>b.classList.remove('active'));
+    Object.values(sections).forEach(s=>s.classList.remove('visible'));
+    if(!isActive){
+      btn.classList.add('active');
+      sections[target].classList.add('visible');
+      sections[target].scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+
+/* افتح قسم الآليات افتراضيًا */
+document.querySelector('.card-vehicles').click();
+</script>
+</body>
+</html>

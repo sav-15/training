@@ -16,6 +16,7 @@
     --green:#0A7C59;
     --green-dark:#075f44;
     --paper:#f5f6f8;
+    --page-bg:#ffffff;
     --ink:#1c1c1c;
     --line:#e2e5ea;
   }
@@ -23,30 +24,43 @@
   html,body{margin:0;padding:0;}
   body{
     font-family:'Cairo',sans-serif;
-    background:var(--paper);
+    background:var(--page-bg);
     color:var(--ink);
     line-height:1.7;
   }
   a{color:inherit;}
 
-  /* ===== Header ===== */
+  /* ===== Header (top ~20% — green banner, rest of page white) ===== */
   header{
-    background:linear-gradient(180deg,var(--navy) 0%,var(--navy-light) 100%);
+    background:linear-gradient(180deg,var(--green) 0%,var(--green-dark) 100%);
     color:#fff;
     text-align:center;
-    padding:36px 16px 42px;
-    box-shadow:0 4px 18px rgba(0,0,0,.25);
+    min-height:20vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:32px 16px 46px;
+    box-shadow:0 4px 18px rgba(0,0,0,.2);
     position:relative;
   }
   .logo-wrap{
     display:flex;
+    align-items:center;
     justify-content:center;
+    gap:14px;
     margin-bottom:14px;
   }
   .logo-wrap svg{
-    width:92px;
-    height:92px;
+    width:64px;
+    height:64px;
     filter:drop-shadow(0 3px 6px rgba(0,0,0,.35));
+  }
+  .logo-wrap .logo-text{
+    font-size:clamp(22px,3.6vw,30px);
+    font-weight:900;
+    letter-spacing:.5px;
+    color:#fff;
   }
   header h1{
     margin:0;
@@ -56,7 +70,7 @@
   }
   header p.subtitle{
     margin:8px 0 0;
-    color:#c9d3de;
+    color:#e5f3ec;
     font-size:15px;
     font-weight:600;
   }
@@ -307,6 +321,7 @@
       <polygon points="50,20 25,72 75,72" fill="none" stroke="#0D1B2A" stroke-width="8" stroke-linejoin="round"/>
       <polygon points="50,32 34,66 66,66" fill="#0D1B2A"/>
     </svg>
+    <span class="logo-text">الدفاع المدني</span>
   </div>
   <h1>التدريب على رأس العمل</h1>
   <p class="subtitle">منصة الدفاع المدني للتدريب الميداني — الآليات · المعدات · المهارات</p>
